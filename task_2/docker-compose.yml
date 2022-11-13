@@ -1,0 +1,43 @@
+version: "3"
+
+
+services:
+  mysql:
+    build: ./db/
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'db'
+    ports:
+      - '3301:3301'
+    networks:
+      - network
+
+  put_info_service:
+    build: put_info_service/
+    volumes:
+      - .:/db
+    command: sh -c "sleep 20s ; python put_info_service.py"
+    depends_on:
+      - mysql
+    networks:
+      - network
+
+
+  web_service:
+    build: web_service/
+    command: sh -c "sleep 20s ; python web_service.py"
+    depends_on:
+      - mysql
+    ports:
+      - '8001:8001'
+    networks:
+      - network
+
+  networks:
+    network:
+      name: network
+
+volumes:
+  data_path: {}
+
