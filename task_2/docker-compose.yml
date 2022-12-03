@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_DATABASE: 'db'
     ports:
-      - '3301:3301'
+      - '3305:3306'
     networks:
       - network
 
@@ -26,6 +26,8 @@ services:
 
   web_service:
     build: web_service/
+    volumes:
+      - .:/db
     command: sh -c "sleep 20s ; python web_service.py"
     depends_on:
       - mysql
@@ -34,9 +36,9 @@ services:
     networks:
       - network
 
-  networks:
-    network:
-      name: network
+networks:
+  network:
+    name: test
 
 volumes:
   data_path: {}

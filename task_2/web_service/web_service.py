@@ -10,8 +10,8 @@ def give_data():
     connection = mysql.connector.connect(
         user='root', 
         password='root', 
-        host='mysql', 
-        port='3301',
+        host='mysql',
+        port='3306',
         database='db')
 
     cursor = connection.cursor()
