@@ -13,7 +13,7 @@ services:
     networks:
       - network
 
-  put_info_service:
+  put-info-service:
     build: put_info_service/
     volumes:
       - .:/db
@@ -24,7 +24,7 @@ services:
       - network
 
 
-  web_service:
+  web-service:
     build: web_service/
     volumes:
       - .:/db
